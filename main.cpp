@@ -57,11 +57,24 @@ Output:
 	Total tokens = 13
 */
 
-#include "Lexer.h"
+#include "DatalogProgram.h"
 
 int main(int argc, const char* argv[]) {
+	try {
+		DatalogProgram* myLog = new DatalogProgram(argv[1]);
+		myLog->parse();
+		delete myLog;
+	}
+	catch (Token* e) {
+		cout << "Failure!" << endl;
+		cout << "\t" << e->toString();
+	}
+
+	/*
 	Lexer* myLexer = new Lexer(argv[1]);
 	myLexer->analyze();
 	delete myLexer;
+	*/
+	system("pause");
 	return 0;
 }

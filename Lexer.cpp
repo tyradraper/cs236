@@ -14,7 +14,8 @@ void Lexer::analyze() {
 		symbol();
 	}
 	tokens.push_back(new Token(MY_EOF, "", curLine));
-	print();
+	curToken = 0;
+//	print();
 }
 
 bool Lexer::whitespace() {
@@ -112,7 +113,7 @@ bool Lexer::block() {
 			x += ifs.get();
 			if (ifs.peek() == '#') {
 				x += ifs.get();
-				tokens.push_back(new Token(COMMENT, x, curLine));
+//				tokens.push_back(new Token(COMMENT, x, curLine));
 				curLine += newLines;
 				return true;
 			}
@@ -122,7 +123,7 @@ bool Lexer::block() {
 		}
 		x += ifs.get();
 	}
-	tokens.push_back(new Token(UNDEFINED, x, curLine));
+//	tokens.push_back(new Token(UNDEFINED, x, curLine));
 	curLine += newLines;
 	return true;
 }
@@ -132,7 +133,7 @@ bool Lexer::line() {
 	while (ifs.peek() != '\n' && ifs.peek() != EOF) {
 		x += ifs.get();
 	}
-	tokens.push_back(new Token(COMMENT, x, curLine));
+//	tokens.push_back(new Token(COMMENT, x, curLine));
 	return true;
 }
 
@@ -177,6 +178,7 @@ bool Lexer::symbol() {
 	}
 	else {
 		tokens.push_back(new Token(UNDEFINED, x, curLine));
+		throw tokens.at(tokens.size() - 1);
 	}
 	return false;
 }
@@ -186,4 +188,19 @@ void Lexer::print() {
 		cout << t->toString() << endl;
 	}
 	cout << "Total Tokens = " << tokens.size() << endl;
+}
+
+Token* Lexer::next(TokenType a) {
+	if (curToken < tokens.size()) {
+		Token* result = tokens.at(curToken);
+		if (result->type() != a || result->type() == UNDEFINED) {
+			throw result;
+		}
+		curToken++;
+		return result;
+	}
+	else {
+		cout << "ya went too far";
+		return tokens.at(curToken - 1);
+	}
 }

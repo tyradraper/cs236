@@ -19,6 +19,11 @@ static const string TOKEN_NAME[] = { "COMMA", "PERIOD", "Q_MARK", "LEFT_PAREN", 
 
 class Token {
 public:
+	Token() {
+		kind = UNDEFINED;
+		value = "";
+		line = -1;
+	}
 	Token(TokenType t, string v, int l) {
 		kind = t;
 		value = v;

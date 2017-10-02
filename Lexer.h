@@ -23,6 +23,14 @@ public:
 		tokens.clear();
 	}
 	void analyze();
+	void print();
+	Token* next(TokenType a);
+private:
+	vector<Token*> tokens;
+	int curLine;
+	ifstream ifs;
+
+	int curToken;
 	bool whitespace();
 	bool alpha();
 	bool symbol();
@@ -30,11 +38,6 @@ public:
 	bool comment();
 	bool block();
 	bool line();
-	void print();
-private:
-	vector<Token*> tokens;
-	int curLine;
-	ifstream ifs;
 };
 
 #endif LEXICALANALYZER_H_
