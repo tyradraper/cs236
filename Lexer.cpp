@@ -193,7 +193,7 @@ void Lexer::print() {
 Token* Lexer::next(TokenType a) {
 	if (curToken < tokens.size()) {
 		Token* result = tokens.at(curToken);
-		if (result->type() != a || result->type() == UNDEFINED) {
+		if (result->type() != a) {
 			throw result;
 		}
 		curToken++;
