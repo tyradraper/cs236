@@ -13,10 +13,13 @@ void DatalogProgram::parse() {
 	ruleList();
 	myLexer->next(QUERIES);
 	myLexer->next(COLON);
+//	cout << "1" << endl;
 	query();
+//	cout << endl << "2" << endl;;
 	queryList();
+//	cout << endl << "3" << endl;
 	myLexer->next(MY_EOF);
-
+//	cout << endl << "4" << endl;
 	/*
 	current = myLexer->next();
 	if (current->type() != SCHEMES) {
@@ -84,7 +87,13 @@ void DatalogProgram::idList() {
 	catch (Token* e) {
 		return;
 	}
-	myLexer->next(ID);
+	try {
+		myLexer->next(ID);
+	}
+	catch (Token* e) {
+		myLexer->prev();
+		return;
+	}
 	idList();
 }
 
@@ -134,10 +143,15 @@ void DatalogProgram::headPredicate() {
 }
 
 void DatalogProgram::predicate() {
+//	cout << "predicate";
 	myLexer->next(ID);
+//	cout << "a";
 	myLexer->next(LEFT_PAREN);
+//	cout << "b";
 	parameter();
+//	cout << "c";
 	parameterList();
+//	cout << "d";
 	myLexer->next(RIGHT_PAREN);
 }
 
@@ -148,7 +162,13 @@ void DatalogProgram::predicateList() {
 	catch (Token* e) {
 		return;
 	}
-	predicate();
+	try {
+		predicate();
+	}
+	catch (Token* e) {
+		myLexer->prev();
+		return;
+	}
 	predicateList();
 }
 
@@ -173,7 +193,13 @@ void DatalogProgram::parameterList() {
 	catch (Token* e) {
 		return;
 	}
-	parameter();
+	try {
+		parameter();
+	}
+	catch (Token* e) {
+		myLexer->prev();
+		return;
+	}
 	parameterList();
 }
 
@@ -216,6 +242,12 @@ void DatalogProgram::stringList() {
 	catch (Token* e) {
 		return;
 	}
-	myLexer->next(STRING);
+	try {
+		myLexer->next(STRING);
+	}
+	catch (Token* e) {
+		myLexer->prev();
+		return;
+	}
 	stringList();
 }

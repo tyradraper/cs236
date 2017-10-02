@@ -1,3 +1,16 @@
+/*
+test1:
+test2: id in a factlist (not a factlist)
+(COMMA,",",9)
+test3: missing period
+(ID,"snap",10)
+test4: junk after queries
+
+test5:
+test6:
+
+*/
+
 #pragma once
 #include "Lexer.h"
 #include "Predicate.h"

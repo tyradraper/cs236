@@ -204,3 +204,7 @@ Token* Lexer::next(TokenType a) {
 		return tokens.at(curToken - 1);
 	}
 }
+
+void Lexer::prev() {
+	curToken--;
+}

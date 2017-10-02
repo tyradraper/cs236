@@ -25,6 +25,7 @@ public:
 	void analyze();
 	void print();
 	Token* next(TokenType a);
+	void prev();
 private:
 	vector<Token*> tokens;
 	int curLine;
