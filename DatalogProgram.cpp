@@ -15,6 +15,7 @@ void DatalogProgram::parse() {
 	myLexer->next(COLON);
 	query();
 	queryList();
+	myLexer->next(MY_EOF);
 
 	/*
 	current = myLexer->next();
