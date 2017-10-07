@@ -28,9 +28,9 @@ test10: undefined token
 
 #include "Lexer.h"
 
-#include "Predicate.h"
-#include "Parameter.h"
-#include "Rule.h"
+#include "Schemes.h"
+#include "Facts.h"
+#include "Rules.h"
 
 class DatalogProgram {
 public:
@@ -43,10 +43,10 @@ public:
 private:
 	Lexer* myLexer;
 	Token* current;
-	vector<Predicate> schemes;
-	vector<Predicate> facts;
-	vector<Rule> rules;
-	vector<Predicate> queries;
+	Schemes scemes;
+	Facts facts;
+	Rules rules;
+	Queries queries;
 
 	void scheme();
 	void schemeList();
