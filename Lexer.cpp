@@ -208,3 +208,11 @@ Token* Lexer::next(TokenType a) {
 void Lexer::prev() {
 	curToken--;
 }
+
+int Lexer::at() {
+	return curToken;
+}
+
+void Lexer::move(int x) {
+	curToken = x;
+}

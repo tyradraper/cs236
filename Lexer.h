@@ -1,10 +1,9 @@
-#ifndef LEXICALANALYZER_H_
-#define LEXICALANALYZER_H_
-
 /*
 Tyra Draper, Section 1, tyra.draper@gmail.com
 Purpose: parse a text file
 */
+
+#pragma once
 
 #include "Token.h"
 #include <fstream>
@@ -26,6 +25,8 @@ public:
 	void print();
 	Token* next(TokenType a);
 	void prev();
+	int at();
+	void move(int x);
 private:
 	vector<Token*> tokens;
 	int curLine;
@@ -40,23 +41,3 @@ private:
 	bool block();
 	bool line();
 };
-
-#endif LEXICALANALYZER_H_
-
-/*
-char .get()
-char .peek()
-.open(string)
-
-pass by reference:
-main:
-string filename;
-lexer mylex(filename);
-
-here:
-lexer(string& fn)
-filename=fn;
-
-and in in tokens:
-vector<Tokens*>& 
-*/

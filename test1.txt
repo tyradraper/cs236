@@ -10,11 +10,11 @@ Facts: #comment
   snap('33333','Snoopy','12 Apple','555-1234').
 
 Rules:
-  HasSameAddress(X,Y) :- snap(A,X,B,C),snap(D,Y,B,E).
+  HasSameAddress(X,Y) :- snap(A,(X+'hi'),(('another'*s2)*B),C),snap(D,Y,B,E).
 
 #comment
 
 Queries:
-  HasSameAddress('Snoopy',Who)?
+  HasSameAddress('Snoopy',Who,('hey'+boo))?
 
-  Hello
+  

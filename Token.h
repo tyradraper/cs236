@@ -3,8 +3,7 @@ Tyra Draper, Section 1, tyra.draper@gmail.com
 Purpose: store the type, value, and line number of a token
 */
 
-#ifndef TOKEN_H_
-#define TOKEN_H_
+#pragma once
 
 #include <string>
 using namespace std;
@@ -37,5 +36,3 @@ private:
 	string value;
 	int line;
 };
-
-#endif TOKEN_H_

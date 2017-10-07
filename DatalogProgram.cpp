@@ -1,3 +1,9 @@
+/*
+Tyra Draper, Section 1, tyra.draper@gmail.com
+Purpose: implement the DatalogProgram.h file
+*/
+
+#pragma once
 #include "DatalogProgram.h"
 
 void DatalogProgram::parse() {
@@ -13,53 +19,10 @@ void DatalogProgram::parse() {
 	ruleList();
 	myLexer->next(QUERIES);
 	myLexer->next(COLON);
-//	cout << "1" << endl;
 	query();
-//	cout << endl << "2" << endl;;
 	queryList();
-//	cout << endl << "3" << endl;
 	myLexer->next(MY_EOF);
-//	cout << endl << "4" << endl;
-	/*
-	current = myLexer->next();
-	if (current->type() != SCHEMES) {
-		throw current;
-	}
-	current = myLexer->next();
-	if (current->type() != COLON) {
-		throw current;
-	}
-	scheme();
-	schemeList();
-	current = myLexer->next();
-	if (current->type() != FACTS) {
-		throw current;
-	}
-	current = myLexer->next();
-	if (current->type() != COLON) {
-		throw current;
-	}
-	factList();
-	if (current->type() != RULES) {
-		throw current;
-	}
-	current = myLexer->next();
-	if (current->type() != COLON) {
-		throw current;
-	}
-	ruleList();
-	if (current->type() != QUERIES) {
-		throw current;
-	}
-	current = myLexer->next();
-	if (current->type() != COLON) {
-		throw current;
-	}
-	query();
-	queryList();
-	*/
-
-	cout << "Success!";
+	cout << "Success!" << endl;
 }
 
 void DatalogProgram::scheme() {
@@ -71,11 +34,15 @@ void DatalogProgram::scheme() {
 }
 
 void DatalogProgram::schemeList() {
+	int init = myLexer->at();
 	try {
 		scheme();
 	}
 	catch (Token* e) {
-		return;
+		if (myLexer->at() == init) {
+			return;
+		}
+		else throw e;
 	}
 	schemeList();
 }
@@ -87,13 +54,7 @@ void DatalogProgram::idList() {
 	catch (Token* e) {
 		return;
 	}
-	try {
-		myLexer->next(ID);
-	}
-	catch (Token* e) {
-		myLexer->prev();
-		return;
-	}
+	myLexer->next(ID);
 	idList();
 }
 
@@ -107,11 +68,17 @@ void DatalogProgram::fact() {
 }
 
 void DatalogProgram::factList() {
+	int init = myLexer->at();
 	try {
 		fact();
 	}
 	catch (Token* e) {
-		return;
+		if (myLexer->at() == init) {
+			return;
+		}
+		else {
+			throw e;
+		}
 	}
 	factList();
 }
@@ -125,11 +92,17 @@ void DatalogProgram::rule() {
 }
 
 void DatalogProgram::ruleList() {
+	int init = myLexer->at();
 	try {
 		rule();
 	}
 	catch (Token* e) {
-		return;
+		if (myLexer->at() == init) {
+			return;
+		}
+		else {
+			throw e;
+		}
 	}
 	ruleList();
 }
@@ -143,32 +116,22 @@ void DatalogProgram::headPredicate() {
 }
 
 void DatalogProgram::predicate() {
-//	cout << "predicate";
 	myLexer->next(ID);
-//	cout << "a";
 	myLexer->next(LEFT_PAREN);
-//	cout << "b";
 	parameter();
-//	cout << "c";
 	parameterList();
-//	cout << "d";
 	myLexer->next(RIGHT_PAREN);
 }
 
 void DatalogProgram::predicateList() {
+	int init = myLexer->at();
 	try {
 		myLexer->next(COMMA);
 	}
 	catch (Token* e) {
 		return;
 	}
-	try {
-		predicate();
-	}
-	catch (Token* e) {
-		myLexer->prev();
-		return;
-	}
+	predicate();
 	predicateList();
 }
 
@@ -187,19 +150,14 @@ void DatalogProgram::parameter() {
 }
 
 void DatalogProgram::parameterList() {
+	int init = myLexer->at();
 	try {
 		myLexer->next(COMMA);
 	}
 	catch (Token* e) {
 		return;
 	}
-	try {
-		parameter();
-	}
-	catch (Token* e) {
-		myLexer->prev();
-		return;
-	}
+	parameter();
 	parameterList();
 }
 
@@ -226,28 +184,29 @@ void DatalogProgram::query() {
 }
 
 void DatalogProgram::queryList() {
+	int init = myLexer->at();
 	try {
 		query();
 	}
 	catch (Token* e) {
-		return;
+		if (myLexer->at() == init) {
+			return;
+		}
+		else {
+			throw e;
+		}
 	}
 	queryList();
 }
 
 void DatalogProgram::stringList() {
+	int init = myLexer->at();
 	try {
 		myLexer->next(COMMA);
 	}
 	catch (Token* e) {
 		return;
 	}
-	try {
-		myLexer->next(STRING);
-	}
-	catch (Token* e) {
-		myLexer->prev();
-		return;
-	}
+	myLexer->next(STRING);
 	stringList();
 }
