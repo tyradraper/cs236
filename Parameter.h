@@ -6,9 +6,15 @@
 
 class Parameter {
 public:
-	static Parameter createParameter(Lexer lex) {
-		new Id(lex);
-		new String(lex);
-		new Expression(lex);
+	static Parameter* createParameter(Lexer* lex) {
+		if (lex->top()->type() == ID) {
+			return new Id(lex);
+		}
+		else if (lex->top()->type() == STRING) {
+			return new Id(lex);
+		}
+		else {
+			return new Expression(lex);
+		}
 	}
 };

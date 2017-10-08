@@ -4,7 +4,7 @@
 
 class Query : public Predicate {
 public:
-	Query(Lexer lex) {
-		Predicate(lex);
+	Query(Lexer* lex) : Predicate(lex) {
+		lex->next(Q_MARK);
 	}
 };

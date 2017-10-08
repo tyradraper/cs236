@@ -19,20 +19,21 @@ static const string TOKEN_NAME[] = { "COMMA", "PERIOD", "Q_MARK", "LEFT_PAREN", 
 class Token {
 public:
 	Token() {
-		kind = UNDEFINED;
-		value = "";
+		theType = UNDEFINED;
+		theValue = "";
 		line = -1;
 	}
 	Token(TokenType t, string v, int l) {
-		kind = t;
-		value = v;
+		theType = t;
+		theValue = v;
 		line = l;
 	}
 	virtual ~Token() {}
 	string toString();
 	TokenType type();
+	string value();
 protected:
-	TokenType kind;
-	string value;
+	TokenType theType;
+	string theValue;
 	int line;
 };

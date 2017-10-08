@@ -35,12 +35,19 @@ test10: undefined token
 
 class DatalogProgram {
 public:
-	DatalogProgram(Lexer lex) {
+	DatalogProgram(Lexer* lex) {
 		schemes = new Schemes(lex);
 		facts = new Facts(lex);
 		rules = new Rules(lex);
 		queries = new Queries(lex);
+		lex->next(MY_EOF);
 	}
+/*	string toString() {
+		return schemes->toString() + "\n" +
+			facts->toString() + "\n" +
+			rules->toString() + "\n" +
+			queries->toString();
+	} */
 	virtual ~DatalogProgram() {}
 protected:
 	Schemes* schemes;

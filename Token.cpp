@@ -6,9 +6,13 @@ Purpose: implement the Token.h functions
 #include "Token.h"
 
 string Token::toString() {
-	return "(" + TOKEN_NAME[kind] + ",\"" + value + "\"," + to_string(line) + ")";
+	return "(" + TOKEN_NAME[theType] + ",\"" + theValue + "\"," + to_string(line) + ")";
 }
 
 TokenType Token::type() { 
-	return kind; 
+	return theType; 
+}
+
+string Token::value() {
+	return theValue;
 }

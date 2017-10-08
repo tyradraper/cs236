@@ -5,18 +5,20 @@
 
 class Schemes {
 public:
-	Schemes(Lexer lex) {
-		while (true) {
-			try {
-				schemes.push_back(new Scheme(lex));
-			}
-			catch (Token* e) {
-				if (schemes.size() == 0) {
-					throw e;
-				}
-				break;
-			}
+	Schemes(Lexer* lex) {
+		lex->next(SCHEMES);
+		lex->next(COLON);
+		do {
+			schemes.push_back(new Scheme(lex));
+		} while (lex->top()->type() == ID);
+	}
+	string toString() {
+		string result = "";
+		result = result + "Schemes(" + to_string(schemes.size()) + "):\n";
+		for (int i = 0; i < schemes.size(); ++i) {
+			result += schemes.at(i)->toString() + "\n";
 		}
+		return result;
 	}
 protected:
 	vector<Scheme*> schemes;

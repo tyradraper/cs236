@@ -5,14 +5,11 @@
 
 class Rules {
 public:
-	Rules(Lexer lex) {
-		while (true) {
-			try {
-				rules.push_back(new Rule(lex));
-			}
-			catch (Token* e) {
-				break;
-			}
+	Rules(Lexer* lex) {
+		lex->next(RULES);
+		lex->next(COLON);
+		while (lex->top()->type() == ID) {
+			rules.push_back(new Rule(lex));
 		}
 	}
 protected:

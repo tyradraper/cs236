@@ -6,9 +6,16 @@
 
 class Predicate {
 public:
-	Predicate(Lexer lex) {
+	Predicate(Lexer* lex) {
+		Parameter* param;
 		predicateId = new Id(lex);
-		parameters.push_back(new Parameter(lex));
+		lex->next(LEFT_PAREN);
+		parameters.push_back(param->createParameter(lex));
+		while (lex->top()->type() == COMMA) {
+			lex->pop();
+			parameters.push_back(param->createParameter(lex));
+		}
+		lex->next(RIGHT_PAREN);
 	}
 protected:
 	Id* predicateId;

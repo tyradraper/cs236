@@ -5,15 +5,12 @@
 
 class Facts {
 public:
-	Facts(Lexer lex) {
-		while (true) {
-			try {
-				facts.push_back(new Fact(lex));
-			}
-			catch (Token* e) {
-				break;
-			}
-		}
+	Facts(Lexer* lex) {
+		lex->next(FACTS);
+		lex->next(COLON);
+		while (lex->top()->type() == ID) {
+			facts.push_back(new Fact(lex));
+		}		
 	}
 protected:
 	vector<Fact*> facts;

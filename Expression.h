@@ -6,15 +6,26 @@
 using namespace std;
 
 enum Operator { PLUS, TIMES };
-static const string OPERATOR_STRING[] = { "+", "*" };
+//static const string OPERATOR_STRING[] = { "+", "*" };
 
 class Expression : public Parameter {
 public:
-	Expression(Lexer lex) {
-		createParameter(lex);
+	Expression(Lexer* lex) {
+		lex->next(LEFT_PAREN);
+		parameter1 = createParameter(lex);
+		if (lex->top()->type() == ADD) {
+			lex->pop();
+			myOperator = PLUS;
+		}
+		else {
+			lex->next(MULTIPLY);
+			myOperator = TIMES;
+		}
+		parameter2 = createParameter(lex);
+		lex->next(RIGHT_PAREN);
 	}
 protected:
-	Predicate* predicate1;
+	Parameter* parameter1;
 	Operator myOperator;
-	Predicate* predicate2;
+	Parameter* parameter2;
 };

@@ -5,15 +5,12 @@
 
 class Queries {
 public:
-	Queries(Lexer lex) {
-		while (true) {
-			try {
-				queries.push_back(new Query(lex));
-			}
-			catch (Token* e) {
-				break;
-			}
-		}
+	Queries(Lexer* lex) {
+		lex->next(QUERIES);
+		lex->next(COLON);
+		do {
+			queries.push_back(new Query(lex));
+		} while (lex->top()->type() == ID);
 	}
 protected:
 	vector<Query*> queries;
