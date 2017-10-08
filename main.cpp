@@ -13,8 +13,9 @@ int main(int argc, const char* argv[]) {
 	for (int i = 1; i < 11; ++i) {
 		try {
 			fn = "test" + to_string(i) + ".txt";
-			myLog = new DatalogProgram(fn);
-			myLog->parse();
+			Lexer* lex = new Lexer(fn);
+			myLog = new DatalogProgram(lex);
+			cout << "Success!" << endl;
 			delete myLog;
 		}
 		catch (Token* e) {

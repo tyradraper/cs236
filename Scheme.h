@@ -1,5 +1,5 @@
 #pragma once
-#include "Id.h"
+#include "Parameter.h"
 #include "Lexer.h"
 #include <vector>
 
@@ -15,7 +15,7 @@ public:
 		}
 		lex->next(RIGHT_PAREN);
 	}
-	string toString() {
+/*	string toString() {
 		string result = "";
 		result += " " + schemeId->toString() + "(";
 		for (int i = 0; i < columnNames.size(); ++i) {
@@ -26,7 +26,7 @@ public:
 		}
 		result += ")";
 		return result;
-	}
+	} */
 private:
 	Id* schemeId;
 	vector<Id*> columnNames;

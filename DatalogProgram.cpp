@@ -212,4 +212,4 @@ void DatalogProgram::stringList() {
 	stringList();
 }
 
-/*
+*/
