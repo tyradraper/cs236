@@ -17,17 +17,22 @@ public:
 	Lexer(string fn) {
 		ifs.open(fn);
 		curLine = 1;
+		analyze();
 	}
 	virtual ~Lexer() {
-		tokens.clear();
+		while (tokens.size() > 0) {
+			delete tokens.at(tokens.size());
+		}
 	}
 	void analyze();
 	void print();
 	Token* next(TokenType a);
+	Token* top();
+	void pop();
 	void prev();
 	int at();
 	void move(int x);
-private:
+protected:
 	vector<Token*> tokens;
 	int curLine;
 	ifstream ifs;

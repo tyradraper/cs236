@@ -31,7 +31,7 @@ public:
 	virtual ~Token() {}
 	string toString();
 	TokenType type();
-private:
+protected:
 	TokenType kind;
 	string value;
 	int line;

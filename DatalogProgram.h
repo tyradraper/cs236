@@ -27,42 +27,24 @@ test10: undefined token
 #pragma once
 
 #include "Lexer.h"
-
 #include "Schemes.h"
 #include "Facts.h"
 #include "Rules.h"
+#include "Queries.h"
+#include <vector>
 
 class DatalogProgram {
 public:
-	DatalogProgram(string fn) {
-		myLexer = new Lexer(fn);
-		myLexer->analyze();
+	DatalogProgram(Lexer lex) {
+		schemes = new Schemes(lex);
+		facts = new Facts(lex);
+		rules = new Rules(lex);
+		queries = new Queries(lex);
 	}
 	virtual ~DatalogProgram() {}
-	void parse();
-private:
-	Lexer* myLexer;
-	Token* current;
-	Schemes scemes;
-	Facts facts;
-	Rules rules;
-	Queries queries;
-
-	void scheme();
-	void schemeList();
-	void idList();
-	void fact();
-	void factList();
-	void rule();
-	void ruleList();
-	void headPredicate();
-	void predicate();
-	void predicateList();
-	void parameter();
-	void parameterList();
-	void expression();
-	void anOperator();
-	void query();
-	void queryList();
-	void stringList();
+protected:
+	Schemes* schemes;
+	Facts* facts;
+	Rules* rules;
+	Queries* queries;
 };

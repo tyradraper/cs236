@@ -205,6 +205,14 @@ Token* Lexer::next(TokenType a) {
 	}
 }
 
+Token* Lexer::top() {
+	return tokens.at(curToken);
+}
+
+void Lexer::pop() {
+	curToken++;
+}
+
 void Lexer::prev() {
 	curToken--;
 }
