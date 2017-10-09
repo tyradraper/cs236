@@ -5,14 +5,14 @@
 
 class Predicate {
 public:
+	Predicate() {}
 	Predicate(Lexer* lex) {
-		Parameter* param;
 		predicateId = new Id(lex);
 		lex->next(LEFT_PAREN);
-		parameters.push_back(param->createParameter(lex));
+		parameters.push_back(Parameter::createParameter(lex));
 		while (lex->top()->type() == COMMA) {
 			lex->pop();
-			parameters.push_back(param->createParameter(lex));
+			parameters.push_back(Parameter::createParameter(lex));
 		}
 		lex->next(RIGHT_PAREN);
 	}

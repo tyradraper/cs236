@@ -1,6 +1,5 @@
 #pragma once
 #include "HeadPredicate.h"
-#include "Predicate.h"
 #include "Lexer.h"
 #include <vector>
 

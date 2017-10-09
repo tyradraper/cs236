@@ -12,7 +12,7 @@ class Expression : public Parameter {
 public:
 	Expression(Lexer* lex) {
 		lex->next(LEFT_PAREN);
-		parameter1 = createParameter(lex);
+		parameter1 = Parameter::createParameter(lex);
 		if (lex->top()->type() == ADD) {
 			lex->pop();
 			myOperator = PLUS;
@@ -21,7 +21,7 @@ public:
 			lex->next(MULTIPLY);
 			myOperator = TIMES;
 		}
-		parameter2 = createParameter(lex);
+		parameter2 = Parameter::createParameter(lex);
 		lex->next(RIGHT_PAREN);
 	}
 protected:
