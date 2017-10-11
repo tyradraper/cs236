@@ -15,6 +15,18 @@ public:
 		}
 		lex->next(PERIOD);
 	}
+	string toString() {
+		string result = "";
+		result += head->toString() + " :- ";
+		for (int i = 0; i < predicates.size(); ++i) {
+			result += predicates.at(i)->toString();
+			if (i != predicates.size() - 1) {
+				result += ",";
+			}
+		}
+		result += ".";
+		return result;
+	}
 protected:
 	HeadPredicate* head;
 	vector<Predicate*> predicates;

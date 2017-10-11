@@ -6,7 +6,7 @@
 using namespace std;
 
 enum Operator { PLUS, TIMES };
-//static const string OPERATOR_STRING[] = { "+", "*" };
+static const string OPERATOR_STRING[] = { "+", "*" };
 
 class Expression : public Parameter {
 public:
@@ -24,6 +24,9 @@ public:
 		parameter2 = Parameter::createParameter(lex);
 		lex->next(RIGHT_PAREN);
 	}
+	string toString() {
+		return "(" + parameter1->toString() + OPERATOR_STRING[myOperator] + parameter2->toString() + ")";
+	} 
 protected:
 	Parameter* parameter1;
 	Operator myOperator;

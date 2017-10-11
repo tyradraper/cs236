@@ -12,6 +12,14 @@ public:
 			queries.push_back(new Query(lex));
 		} while (lex->top()->type() == ID);
 	}
+	string toString() {
+		string result = "";
+		result += "Queries(" + to_string(queries.size()) + "):\n";
+		for (int i = 0; i < queries.size(); ++i) {
+			result += "  " + queries.at(i)->toString() + "\n";
+		}
+		return result;
+	}
 protected:
 	vector<Query*> queries;
 };

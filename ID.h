@@ -8,9 +8,9 @@ public:
 	Id(Lexer* lex) {
 		id = lex->next(ID);
 	}
-/*	string toString() {
+	string toString() {
 		return id->value();
-	} */
+	}
 protected:
 	Token* id;
 };

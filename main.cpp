@@ -16,6 +16,7 @@ int main(int argc, const char* argv[]) {
 			Lexer* lex = new Lexer(fn);
 			myLog = new DatalogProgram(lex);
 			cout << "Success!" << endl;
+			cout << myLog->toString() << endl;
 			delete myLog;
 		}
 		catch (Token* e) {

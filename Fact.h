@@ -17,6 +17,24 @@ public:
 		lex->next(RIGHT_PAREN);
 		lex->next(PERIOD);
 	}
+	string toString() {
+		string result = vectorId->toString() + "(";
+		for (int i = 0; i < strings.size(); ++i) {
+			result += strings.at(i)->toString();
+			if (i != strings.size() - 1) {
+				result += ",";
+			}
+		}
+		result += ").";
+		return result;
+	}
+	vector<string>* domain() {
+		vector<string>* dom = new vector<string>;
+		for (String* str : strings) {
+			dom->push_back(str->toString());
+		}
+		return dom;
+	}
 protected:
 	Id* vectorId;
 	vector<String*> strings;

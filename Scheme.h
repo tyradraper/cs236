@@ -15,9 +15,9 @@ public:
 		}
 		lex->next(RIGHT_PAREN);
 	}
-/*	string toString() {
+	string toString() {
 		string result = "";
-		result += " " + schemeId->toString() + "(";
+		result += schemeId->toString() + "(";
 		for (int i = 0; i < columnNames.size(); ++i) {
 			result += columnNames.at(i)->toString();
 			if (i != columnNames.size() - 1) {
@@ -26,7 +26,7 @@ public:
 		}
 		result += ")";
 		return result;
-	} */
+	}
 private:
 	Id* schemeId;
 	vector<Id*> columnNames;

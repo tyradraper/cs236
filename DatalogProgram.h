@@ -5,11 +5,11 @@ Purpose: checks the syntax of a given file
 test1: expressions & nested expressions
 Success!
 test2: id in a factlist (not a factlist)
-(COMMA,",",9)
+(ID,"id",9)
 test3: facts before queries
 (FACTS,"Facts",1)
 test4: junk after queries
-(ID,"Hello",20)
+(EOF,"",20)
 test5: two commas in a row
 (COMMA,",",13)
 test6: second period missing (right before a new section)
@@ -42,12 +42,9 @@ public:
 		queries = new Queries(lex);
 		lex->next(MY_EOF);
 	}
-/*	string toString() {
-		return schemes->toString() + "\n" +
-			facts->toString() + "\n" +
-			rules->toString() + "\n" +
-			queries->toString();
-	} */
+	string toString() {
+		return schemes->toString() + facts->toString() + rules->toString() + queries->toString() + facts->domain();
+	}
 	virtual ~DatalogProgram() {}
 protected:
 	Schemes* schemes;

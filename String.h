@@ -8,9 +8,10 @@ public:
 	String(Lexer* lex) {
 		myString = lex->next(STRING);
 	}
-/*	string toString() {
+	string toString() {
 		return myString->value();
-	} */
+	}
+
 protected:
 	Token* myString;
 };

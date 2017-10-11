@@ -12,6 +12,14 @@ public:
 			rules.push_back(new Rule(lex));
 		}
 	}
+	string toString() {
+		string result = "";
+		result = result + "Rules(" + to_string(rules.size()) + "):\n";
+		for (int i = 0; i < rules.size(); ++i) {
+			result += " " + rules.at(i)->toString() + "\n";
+		}
+		return result;
+	}
 protected:
 	vector<Rule*> rules;
 };

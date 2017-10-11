@@ -2,6 +2,8 @@
 #include "Fact.h"
 #include "Lexer.h"
 #include <vector>
+#include <algorithm>
+using namespace std;
 
 class Facts {
 public:
@@ -11,6 +13,29 @@ public:
 		while (lex->top()->type() == ID) {
 			facts.push_back(new Fact(lex));
 		}		
+	}
+	string toString() {
+		string result = "";
+		result = result + "Facts(" + to_string(facts.size()) + "):\n";
+		for (int i = 0; i < facts.size(); ++i) {
+			result += "  " + facts.at(i)->toString() + "\n";
+		}
+		return result;
+	}
+	string domain() {
+		string result = "Domain(";
+		vector<string> values;
+		for (Fact* fact : facts) {
+			vector<string>* individual = fact->domain();
+			values.insert(values.end(), individual->begin(), individual->end());
+		}
+		sort(values.begin(), values.end());
+		values.erase(unique(values.begin(), values.end()), values.end());
+		result += to_string(values.size()) + "):\n";
+		for (int i = 0; i < values.size(); ++i) {
+			result += "  " + values.at(i) + "\n";
+		}
+		return result;
 	}
 protected:
 	vector<Fact*> facts;
