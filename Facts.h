@@ -31,9 +31,9 @@ public:
 		}
 		sort(values.begin(), values.end());
 		values.erase(unique(values.begin(), values.end()), values.end());
-		result += to_string(values.size()) + "):\n";
+		result += to_string(values.size()) + "):";
 		for (int i = 0; i < values.size(); ++i) {
-			result += "  " + values.at(i) + "\n";
+			result += "\n  " + values.at(i);
 		}
 		return result;
 	}

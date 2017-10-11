@@ -11,7 +11,6 @@ public:
 	string toString() {
 		return myString->value();
 	}
-
 protected:
 	Token* myString;
 };

@@ -8,22 +8,22 @@ Outputs: success or failure with the offending token
 #include "DatalogProgram.h"
 
 int main(int argc, const char* argv[]) {
-	string fn;
+//	string fn;
 	DatalogProgram* myLog;
-	for (int i = 1; i < 11; ++i) {
+//	for (int i = 11; i < 13; ++i) {
 		try {
-			fn = "test" + to_string(i) + ".txt";
-			Lexer* lex = new Lexer(fn);
+//			fn = "file" + to_string(i) + ".txt";
+			Lexer* lex = new Lexer(argv[1]);
 			myLog = new DatalogProgram(lex);
 			cout << "Success!" << endl;
-			cout << myLog->toString() << endl;
+			cout << myLog->toString();
 			delete myLog;
 		}
 		catch (Token* e) {
 			cout << "Failure!" << endl;
-			cout << "\t" << e->toString() << endl;
+			cout << "  " << e->toString();
 		}
-	}
-	system("pause");
+//	}
+//	system("pause");
 	return 0;
 }
