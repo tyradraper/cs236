@@ -7,4 +7,7 @@ public:
 	Query(Lexer* lex) : Predicate(lex) {
 		lex->next(Q_MARK);
 	}
+	string toString() {
+		return Predicate::toString() + "?";
+	}
 };

@@ -1,5 +1,6 @@
 #pragma once
-#include "Parameter.h"
+#include "Id.h"
+#include "String.h"
 #include "Lexer.h"
 #include <vector>
 
