@@ -5,6 +5,7 @@
 #include <vector>
 
 class Fact {
+	friend class Relation;
 public:
 	Fact(Lexer* lex) {
 		vectorId = new Id(lex);

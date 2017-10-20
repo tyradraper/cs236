@@ -4,6 +4,7 @@
 #include <vector>
 
 class Scheme {
+	friend class Relation;
 public:
 	Scheme(Lexer* lex) {
 		schemeId = new Id(lex);
