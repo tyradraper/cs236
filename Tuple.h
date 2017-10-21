@@ -1,23 +1,24 @@
 #pragma once
-#include "String.h"
+#include <string>
 #include <vector>
+using namespace std;
 
 class Tuple {
 public:
-	Tuple(vector<String*> input) {
+	Tuple(vector<string> input) {
 		data = input;
 	}
 	Tuple* at(vector<int> cols) {
-		vector<String*> newData;
+		vector<string> newData;
 		for (int i : cols) {
 			newData.push_back(data.at(i));
 		}
 		return new Tuple(newData);
 	}
-	String* at(int col) {
+	string at(int col) {
 		return data.at(col);
 	}
-	bool Tuple::operator==(Tuple &other) {
+	bool operator==(Tuple &other) {
 		for (int i = 0; i < data.size(); ++i) {
 			if (this->at(i) != other.at(i)) {
 				return false;
@@ -25,9 +26,9 @@ public:
 		}
 		return true;
 	}
-	bool Tuple::operator!=(Tuple &other) {
+	bool operator!=(Tuple &other) {
 		return !(*this == other);
 	}
 private:
-	vector<String*> data;
+	vector<string> data;
 };

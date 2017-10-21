@@ -1,24 +1,20 @@
 #pragma once
 #include "Tuple.h"
-#include "Scheme.h"
-#include "Fact.h"
 #include <vector>
+#include <string>
+using namespace std;
 
 class Relation {
 public:
-	Relation(vector<Id*> s) {
+	Relation(vector<string> s) {
 		schema = s;
 	}
-	Relation(Scheme* scheme) {
-		schema = scheme->columnNames;
-	}
-	void add(Fact* fact);
 	void add(Tuple* tuple);
-	Relation* select(int col, String* str);
+	Relation* select(int col, string str);
 	Relation* select(int col1, int col2);
 	Relation* project(vector<int> cols);
-	Relation* rename(vector<Id*> names);
+	Relation* rename(vector<string> names);
 private:
-	vector<Id*> schema;
+	vector<string> schema;
 	vector<Tuple*> tuples;
 };
