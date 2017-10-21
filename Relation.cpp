@@ -6,11 +6,16 @@ void Relation::add(Fact* fact) {
 
 
 void Relation::add(Tuple* tuple) {
+	for (int i = 0; i < tuples.size(); ++i) {
+		if (tuple == tuples.at(i)) {
+			return;
+		}
+	}
 	tuples.push_back(tuple);
 }
 
 Relation* Relation::select(int col, String* str) {
-	Relation* newRel = new Relation(name, schema);
+	Relation* newRel = new Relation(schema);
 	for (Tuple* tuple : tuples) {
 		if (tuple->at(col) == str) {
 			newRel->add(tuple);
@@ -20,7 +25,7 @@ Relation* Relation::select(int col, String* str) {
 }
 
 Relation* Relation::select(int col1, int col2) {
-	Relation* newRel = new Relation(name, schema);
+	Relation* newRel = new Relation(schema);
 	for (Tuple* tuple : tuples) {
 		if (tuple->at(col1) == tuple->at(col2)) {
 			newRel->add(tuple);
@@ -34,7 +39,7 @@ Relation* Relation::project(vector<int> cols) {
 	for (int i : cols) {
 		newSchema.push_back(schema.at(i));
 	}
-	Relation* newRel = new Relation(name, schema);
+	Relation* newRel = new Relation(schema);
 	for (Tuple* tuple : tuples) {
 		newRel->add(tuple->at(cols));
 	}
@@ -42,7 +47,7 @@ Relation* Relation::project(vector<int> cols) {
 }
 
 Relation* Relation::rename(vector<Id*> names) {
-	Relation* newRel = new Relation(name, names);
+	Relation* newRel = new Relation(names);
 	for (Tuple* tuple : tuples) {
 		newRel->add(tuple);
 	}

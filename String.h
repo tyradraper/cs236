@@ -11,10 +11,10 @@ public:
 	string toString() {
 		return myString->value();
 	}
-	bool String::operator==(String &other) {
+	bool operator==(String &other) {
 		return (this->toString() == other.toString());
 	}
-	bool String::operator!=(String &other) {
+	bool operator!=(String &other) {
 		return !(*this == other);
 	}
 protected:

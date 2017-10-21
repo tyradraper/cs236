@@ -11,10 +11,10 @@ public:
 	string toString() {
 		return id->value();
 	}
-	bool Id::operator==(Id &other) {
+	bool operator==(Id &other) {
 		return (this->toString() == other.toString());
 	}
-	bool Id::operator!=(Id &other) {
+	bool operator!=(Id &other) {
 		return !(*this == other);
 	}
 protected:

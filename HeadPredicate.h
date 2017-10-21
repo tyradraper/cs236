@@ -15,7 +15,7 @@ public:
 		}
 		lex->next(RIGHT_PAREN);
 	}
-	string toString() {
+	string toString() { //same as predicate's tostring
 		string result = "";
 		result += " " + predicateId->toString() + "(";
 		for (int i = 0; i < parameters.size(); ++i) {

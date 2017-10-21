@@ -24,6 +24,6 @@ int main(int argc, const char* argv[]) {
 			cout << "  " << e->toString();
 		}
 //	}
-//	system("pause");
+	system("pause");
 	return 0;
 }
