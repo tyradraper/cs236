@@ -6,12 +6,31 @@ Outputs: success or failure with the offending token
 */
 
 #include "Relation.h"
+#include <iostream>
+using namespace std;
 
 int main(int argc, const char* argv[]) {
+	string test[10] = {
+		"A B C D \n",
+		"A B C D \na a c d \na b c c \na b c d \nd d d d \n",
+		"C D E F \na a c d \na b c c \na b c d \nd d d d \n",
+		"B D \na d \nb c \nb d \nd d \n",
+		"A B C D \na a c d \na b c d \nd d d d \n",
+		"A B C D \na b c c \nd d d d \n",
+		"Z X W \na c d \nd d d \n",
+		"X Y \na a \na b \n",
+		"HI \nc \nd \n",
+		"x y \nd d \n"
+	};
+
 	vector<string> colNames = { "A", "B", "C", "D" };
 	Relation* myRelation = new Relation(colNames);
-	myRelation->toString();
-	cout << endl << endl;
+	if (myRelation->toString() == test[0]) {
+		cout << "Success!" << endl;
+	}
+	else {
+		cout << "Fail" << endl;
+	}
 	vector<string> tuple = { "a", "b" , "c", "d" };
 	myRelation->add(tuple);
 	tuple = { "a", "a" , "c", "d" };
@@ -20,12 +39,65 @@ int main(int argc, const char* argv[]) {
 	myRelation->add(tuple);
 	tuple = { "a", "b" , "c", "c" };
 	myRelation->add(tuple);
-	myRelation->toString();
-	cout << endl << endl;
-	myRelation->rename({ "C","D","E","F" })->toString();
-	myRelation->project({ 1,3 })->toString();
-	myRelation->select(3, "d")->toString();
-	myRelation->select(2, 3)->toString();
+	if (myRelation->toString() == test[1]) {
+	cout << "Success!" << endl;
+	}
+	else {
+		cout << "Fail" << endl;
+	}
+	if (myRelation->rename({ "C","D","E","F" })->toString() == test[2]) {
+	cout << "Success!" << endl;
+	}
+	else {
+		cout << "Fail" << endl;
+	}
+	if (myRelation->project({ 1,3 })->toString() == test[3]) {
+	cout << "Success!" << endl;
+	}
+	else {
+		cout << "Fail" << endl;
+	}
+	if (myRelation->select(3, "d")->toString() == test[4]) {
+	cout << "Success!" << endl;
+	}
+	else {
+		cout << "Fail" << endl;
+	}
+	if (myRelation->select(2, 3)->toString() == test[5]) {
+	cout << "Success!" << endl;
+	}
+	else {
+		cout << "Fail" << endl;
+	}
+	//abcd(Z,Z,X,W)?
+	if (myRelation->select(0, 1)->project({ 0, 2, 3 })->rename({ "Z","X","W" })->toString() == test[6]) {
+	cout << "Success!" << endl;
+	}
+	else {
+		cout << "Fail" << endl;
+	}
+	//abcd(X,Y,"c","d")?
+	if (myRelation->select(2, "c")->select(3, "d")->project({ 0,1 })->rename({ "X","Y" })->toString() == test[7]) {
+		cout << "Success!" << endl;
+	}
+	else {
+		cout << "Fail" << endl;
+	}
+	//abcd("a","b","c",HI)?
+	if (myRelation->select(0, "a")->select(1, "b")->select(2, "c")->project({ 3 })->rename({ "HI" })->toString() == test[8]) {
+		cout << "Success!" << endl;
+	}
+	else {
+		cout << "Fail" << endl;
+	}
+	//abcd(x,x,y,y)?
+	if (myRelation->select(0, 1)->select(2, 3)->project({ 0,2 })->rename({ "x","y" })->toString() == test[9]) {
+	cout << "Success!" << endl;
+	}
+	else {
+		cout << "Fail" << endl;
+	}
+	
 
 
 

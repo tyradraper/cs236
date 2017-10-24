@@ -1,9 +1,16 @@
 #include "Relation.h"
 
+void Relation::add(vector<string> t) {
+	add(new Tuple(t));
+}
 
 void Relation::add(Tuple* tuple) {
-	for (int i = 0; i < tuples.size(); ++i) {
-		if (tuple == tuples.at(i)) {
+	for (vector<Tuple*>::const_iterator it = tuples.begin(); it < tuples.end(); ++it) {
+		if (*tuple == **it) {
+			return;
+		}
+		if (*tuple < **it) {
+			tuples.insert(it,tuple);
 			return;
 		}
 	}
@@ -35,7 +42,7 @@ Relation* Relation::project(vector<int> cols) {
 	for (int i : cols) {
 		newSchema.push_back(schema.at(i));
 	}
-	Relation* newRel = new Relation(schema);
+	Relation* newRel = new Relation(newSchema);
 	for (Tuple* tuple : tuples) {
 		newRel->add(tuple->at(cols));
 	}
