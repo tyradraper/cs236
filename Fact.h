@@ -36,6 +36,16 @@ public:
 		}
 		return dom;
 	}
+	string getName() {
+		return vectorId->toString();
+	}
+	vector<string> getTuple() {
+		vector<string> tuple;
+		for (String* id : strings) {
+			tuple.push_back(id->toString());
+		}
+		return tuple;
+	}
 protected:
 	Id* vectorId;
 	vector<String*> strings;

@@ -46,6 +46,18 @@ public:
 		return schemes->toString() + facts->toString() + rules->toString() + queries->toString() + facts->domain();
 	}
 	virtual ~DatalogProgram() {}
+	vector<Scheme*> getSchemes() {
+		return schemes->info();
+	}
+	vector<Fact*> getFacts() {
+		return facts->info();
+	}
+	vector<Rule*> getRules() {
+		return rules->info();
+	}
+	vector<Query*> getQueries() {
+		return queries->info();
+	}
 protected:
 	Schemes* schemes;
 	Facts* facts;

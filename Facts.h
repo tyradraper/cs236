@@ -37,6 +37,9 @@ public:
 		}
 		return result;
 	}
+	vector<Fact*> info() {
+		return facts;
+	}
 protected:
 	vector<Fact*> facts;
 };

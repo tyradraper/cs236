@@ -2,13 +2,19 @@
 
 #include "Relation.h"
 #include "DatalogProgram.h"
-#include <vector>
+#include <map>
 
 class Database {
 public:
-	Database(DatalogProgram* input) {
-
+	Database(DatalogProgram* input) { 
+		info = input;
 	}
+	void schemes();
+	void facts();
+	void rules();
+	string queries();
+	string toString();
 private:
-	vector<Relation*> relations;
+	DatalogProgram* info;
+	map<string, Relation*> relations;
 };

@@ -20,6 +20,9 @@ public:
 		}
 		return result;
 	}
+	vector<Query*> info() {
+		return queries;
+	}
 protected:
 	vector<Query*> queries;
 };

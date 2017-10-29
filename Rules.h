@@ -20,6 +20,9 @@ public:
 		}
 		return result;
 	}
+	vector<Rule*> info() {
+		return rules;
+	}
 protected:
 	vector<Rule*> rules;
 };

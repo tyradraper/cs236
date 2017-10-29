@@ -29,6 +29,9 @@ public:
 		x += ")";
 		return x;
 	}
+	string getName() {
+		return predicateId->toString();
+	}
 protected:
 	Id* predicateId;
 	vector<Parameter*> parameters;

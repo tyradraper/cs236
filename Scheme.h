@@ -28,6 +28,16 @@ public:
 		result += ")";
 		return result;
 	}
+	string getName() {
+		return schemeId->toString();
+	}
+	vector<string> getSchema() {
+		vector<string> schema;
+		for (Id* id : columnNames) {
+			schema.push_back(id->toString());
+		}
+		return schema;
+	}
 private:
 	Id* schemeId;
 	vector<Id*> columnNames;

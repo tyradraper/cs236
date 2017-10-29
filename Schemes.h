@@ -20,6 +20,9 @@ public:
 		}
 		return result;
 	}
+	vector<Scheme*> info() {
+		return schemes;
+	}
 protected:
 	vector<Scheme*> schemes;
 };
