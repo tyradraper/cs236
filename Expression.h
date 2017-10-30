@@ -27,6 +27,9 @@ public:
 	string toString() {
 		return "(" + parameter1->toString() + OPERATOR_STRING[myOperator] + parameter2->toString() + ")";
 	} 
+	int type() {
+		return -1;
+	}
 protected:
 	Parameter* parameter1;
 	Operator myOperator;

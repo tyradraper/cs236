@@ -17,6 +17,9 @@ public:
 	bool operator!=(Id &other) {
 		return !(*this == other);
 	}
+	int type() {
+		return ID;
+	}
 protected:
 	Token* id;
 };

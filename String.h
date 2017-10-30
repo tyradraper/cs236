@@ -17,6 +17,9 @@ public:
 	bool operator!=(String &other) {
 		return !(*this == other);
 	}
+	int type() {
+		return STRING;
+	}
 protected:
 	Token* myString;
 };

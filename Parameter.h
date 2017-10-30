@@ -6,4 +6,5 @@ public:
 	Parameter() {}
 	static Parameter* createParameter(Lexer* lex);
 	virtual string toString() { return ""; }
+	virtual int type() { return -5; }
 };
