@@ -19,6 +19,9 @@ public:
 	string at(int col) {
 		return data.at(col);
 	}
+	int size() {
+		return data.size();
+	}
 	string toString() {
 		string output = "";
 		for (string s : data) {

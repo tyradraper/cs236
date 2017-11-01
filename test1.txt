@@ -1,20 +1,12 @@
 Schemes:
-  snap(S,N,A,P)
-
-#comment
-
-  HasSameAddress(X,Y)
-
-Facts: #comment
-  snap('12345','C. Brown','12 Apple','555-1234').
-  snap('33333','Snoopy','12 Apple','555-1234').
-
+  Student(name, age, class)
+Facts:
+  Student('Sean','21','Sophomore').
+  Student('Arthur','19','Freshman').
+  Student('Sidney','19','Sophomore').
+  Student('Nicole','23','Senior').
 Rules:
-  HasSameAddress(X,Y) :- snap(A,(X+'hi'),(('another'*s2)*B),C),snap(D,Y,B,E).
-
-#comment
-
 Queries:
-  HasSameAddress('Snoopy',Who,('hey'+boo))?
-
-  
+  Student(A,'19',B)?
+  Student(M,M,M)?
+  Student('Nicole',howOld,'Senior')?

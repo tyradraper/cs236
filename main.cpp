@@ -21,7 +21,6 @@ int main(int argc, const char* argv[]) {
 			myDatabase = new Database(myLog);
 			myDatabase->schemes();
 			myDatabase->facts();
-			cout << myDatabase->toString() << endl;
 			cout << myDatabase->queries();
 			delete myLog;
 		}

@@ -18,12 +18,21 @@ public:
 	Relation* rename(vector<string> names);
 	string toString() {
 		string str = "";
-		for (string s : schema) {
-			str += s + " ";
+		if (tuples.size() == 0) {
+			str += " No";
+			return str;
 		}
-		str += "\n";
+		str += " Yes(" + to_string(tuples.size()) + ")";
 		for (Tuple* tuple : tuples) {
-			str += tuple->toString() + "\n";
+			for (int i = 0; i < tuple->size(); ++i) {
+				if (i == 0) {
+					str += "\n  ";
+				}
+				str += schema.at(i) + "=" + tuple->at(i);
+				if (i != tuple->size() - 1) {
+					str += ", ";
+				}
+			}
 		}
 		return str;
 	}

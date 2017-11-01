@@ -13,6 +13,7 @@ public:
 	void facts();
 	void rules();
 	string queries();
+	Relation* answerQuery(Query* q);
 	string toString();
 private:
 	DatalogProgram* info;
