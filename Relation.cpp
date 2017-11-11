@@ -88,8 +88,10 @@ Tuple* Relation::joinable(Tuple* t1, Tuple* t2, vector<string> s1, vector<string
 	}
 	for (int i = 0; i < s1.size(); ++i) {
 		for (int j = 0; j < s2.size(); ++j) {
-			if (s1.at(i) == s2.at(j) && t1->at(i) != t2->at(j)) {
-				return NULL;
+			if (s1.at(i) == s2.at(j)) {
+				if (t1->at(i) != t2->at(j)) {
+					return NULL;
+				}
 			}
 			else {
 				s.push_back(t2->at(j));
@@ -97,4 +99,41 @@ Tuple* Relation::joinable(Tuple* t1, Tuple* t2, vector<string> s1, vector<string
 		}
 	}
 	return new Tuple(s);
+}
+
+void Relation::add(Relation* r, vector<string> s) {
+	vector<int> cols;
+	for (string str : s) {
+		for (int i = 0; i < r->schema.size(); ++i) {
+			if (schema.at(i) == str) {
+				cols.push_back(i);
+				break;
+			}
+		}
+	}
+	r = r->project(cols);
+	for (Tuple* t : r->tuples) {
+		this->add(t);
+	}
+}
+
+string Relation::toString() {
+	string str = "";
+	if (tuples.size() == 0) {
+		str += " No";
+		return str;
+	}
+	str += " Yes(" + to_string(tuples.size()) + ")";
+	for (Tuple* tuple : tuples) {
+		for (int i = 0; i < tuple->size(); ++i) {
+			if (i == 0) {
+				str += "\n  ";
+			}
+			str += schema.at(i) + "=" + tuple->at(i);
+			if (i != tuple->size() - 1) {
+				str += ", ";
+			}
+		}
+	}
+	return str;
 }
