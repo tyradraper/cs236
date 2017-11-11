@@ -6,6 +6,7 @@
 using namespace std;
 
 class Relation {
+
 public:
 	Relation(vector<string> s) {
 		schema = s;
@@ -16,6 +17,8 @@ public:
 	Relation* select(int col1, int col2);
 	Relation* project(vector<int> cols);
 	Relation* rename(vector<string> names);
+	Relation* join(Relation* r);
+	Tuple* joinable(Tuple*, Tuple*, vector<string>, vector<string>);
 	string toString() {
 		string str = "";
 		if (tuples.size() == 0) {
@@ -36,7 +39,7 @@ public:
 		}
 		return str;
 	}
-private:
+protected:
 	vector<string> schema;
 	vector<Tuple*> tuples;
 };
