@@ -21,6 +21,7 @@ public:
 	Relation* join(Relation* r);
 	Tuple* joinable(Tuple* t1, Tuple* t2, vector<string> s1, vector<string> s2);
 	string toString();
+	int size();
 protected:
 	vector<string> schema;
 	vector<Tuple*> tuples;

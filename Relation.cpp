@@ -4,6 +4,10 @@ void Relation::add(vector<string> t) {
 	add(new Tuple(t));
 }
 
+int Relation::size() {
+	return tuples.size();
+}
+
 void Relation::add(Tuple* tuple) {
 	for (vector<Tuple*>::const_iterator it = tuples.begin(); it < tuples.end(); ++it) {
 		if (*tuple == **it) {
@@ -66,7 +70,7 @@ Relation* Relation::join(Relation* r) {
 	for (int i = 0; i < r->schema.size(); ++i) {
 		if (find(schema.begin(), schema.end(), r->schema.at(i)) == schema.end()) {
 			newSchema.push_back(r->schema.at(i));
-			cols.push_back(i);
+			cols.push_back(i + schema.size());
 		}
 	}
 	Relation* newRel = new Relation(newSchema);
@@ -83,19 +87,22 @@ Relation* Relation::join(Relation* r) {
 
 Tuple* Relation::joinable(Tuple* t1, Tuple* t2, vector<string> s1, vector<string> s2) {
 	vector<string> s;
+	if (t1->size() != s1.size() || t2->size() != s2.size()) cout << "ERROR";
 	for (int i = 0; i < t1->size(); ++i) {
 		s.push_back(t1->at(i));
 	}
-	for (int i = 0; i < s1.size(); ++i) {
-		for (int j = 0; j < s2.size(); ++j) {
+	for (int j = 0; j < s2.size(); ++j) {
+		bool unique = true;
+		for (int i = 0; i < s1.size(); ++i) {
 			if (s1.at(i) == s2.at(j)) {
+				unique = false;
 				if (t1->at(i) != t2->at(j)) {
 					return NULL;
 				}
 			}
-			else {
-				s.push_back(t2->at(j));
-			}
+		}
+		if (unique) {
+			s.push_back(t2->at(j));
 		}
 	}
 	return new Tuple(s);
@@ -105,7 +112,7 @@ void Relation::add(Relation* r, vector<string> s) {
 	vector<int> cols;
 	for (string str : s) {
 		for (int i = 0; i < r->schema.size(); ++i) {
-			if (schema.at(i) == str) {
+			if (r->schema.at(i) == str) {
 				cols.push_back(i);
 				break;
 			}
@@ -119,6 +126,11 @@ void Relation::add(Relation* r, vector<string> s) {
 
 string Relation::toString() {
 	string str = "";
+	for (string s : schema) {
+		str += s;
+		str += " ";
+	}
+	str += "\n";
 	if (tuples.size() == 0) {
 		str += " No";
 		return str;
