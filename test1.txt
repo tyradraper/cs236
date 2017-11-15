@@ -1,12 +1,22 @@
-Schemes:
-  Student(name, age, class)
+Schemes: 
+	people(person1,person2)
+	employer(boss,employee)
 Facts:
-  Student('Sean','21','Sophomore').
-  Student('Arthur','19','Freshman').
-  Student('Sidney','19','Sophomore').
-  Student('Nicole','23','Senior').
+	people('joe','bob').
+	people('jim','bob').
+	people('joe','jim').
+	employer('ralph','howard').
+	people('bob','bob').
 Rules:
+	employer(X,Y):- people(Y,X).
+	employer(X,Y):- people(X,Z),employer(Z,Y).
+	people(X,Y):- people(Y,X).
 Queries:
-  Student(A,'19',B)?
-  Student(M,M,M)?
-  Student('Nicole',howOld,'Senior')?
+	people('joe','jim')?
+	people( who, 'bob')?
+	people('joe', anyone)?
+	people(X,X)?
+	people(X,Y)?
+	employer('ralph', X)?
+	employer('bob','bob')?
+	employer(X,Y)?

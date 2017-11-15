@@ -1,4 +1,5 @@
 #include "Relation.h"
+#include <algorithm>
 
 void Relation::add(vector<string> t) {
 	add(new Tuple(t));
@@ -130,7 +131,6 @@ string Relation::toString() {
 		str += s;
 		str += " ";
 	}
-	str += "\n";
 	if (tuples.size() == 0) {
 		str += " No";
 		return str;
