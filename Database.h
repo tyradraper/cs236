@@ -11,9 +11,9 @@ public:
 	}
 	void schemes();
 	void facts();
-	void rules();
+	string rules();
 	string queries();
-	Relation* answerQuery(Query* q);
+	Relation* answerQuery(Predicate* q);
 	string toString();
 private:
 	DatalogProgram* info;

@@ -27,6 +27,12 @@ public:
 		result += ".";
 		return result;
 	}
+	HeadPredicate* getHead() {
+		return head;
+	}
+	vector<Predicate*> getPredicates() {
+		return predicates;
+	}
 protected:
 	HeadPredicate* head;
 	vector<Predicate*> predicates;

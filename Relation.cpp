@@ -127,10 +127,12 @@ void Relation::add(Relation* r, vector<string> s) {
 
 string Relation::toString() {
 	string str = "";
+/*
 	for (string s : schema) {
 		str += s;
 		str += " ";
 	}
+*/
 	if (tuples.size() == 0) {
 		str += " No";
 		return str;

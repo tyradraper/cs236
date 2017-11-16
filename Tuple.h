@@ -9,6 +9,16 @@ public:
 	Tuple(vector<string> input) {
 		data = input;
 	}
+	/*
+	Tuple(Tuple* t1, Tuple* t2) {
+		for (string s : t1->data) {
+			this->data.push_back(s);
+		}
+		for (string s : t2->data) {
+			this->data.push_back(s);
+		}
+	}
+	*/
 	Tuple* at(vector<int> cols) {
 		vector<string> newData;
 		for (int i : cols) {

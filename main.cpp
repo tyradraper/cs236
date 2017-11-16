@@ -10,6 +10,8 @@ Outputs: success or failure with the offending token
 using namespace std;
 
 int main(int argc, const char* argv[]) {
+
+	/*
 	string test[10] = {
 		"A B C  No",
 		"A B C  No",
@@ -114,10 +116,15 @@ int main(int argc, const char* argv[]) {
 	cout << bc->toString() << endl;
 	cout << "Success!" << endl << endl;
 	//	cout << (bc->toString() == test[9] ? "Success!" : "Fail") << endl;
-	
+
+	cout << endl << endl;
+	cout << bc->toString() << endl << "union with" << endl << abcd->toString() << endl << endl;
+	bc->add(abcd, { "A","D" });
+	cout << bc->toString() << endl;
+	*/
 
 
-/*
+
 //	string fn;
 	DatalogProgram* myLog;
 	Database* myDatabase;
@@ -129,7 +136,7 @@ int main(int argc, const char* argv[]) {
 			myDatabase = new Database(myLog);
 			myDatabase->schemes();
 			myDatabase->facts();
-			myDatabase->rules();
+			cout << myDatabase->rules() << endl;
 			cout << myDatabase->queries();
 			delete myLog;
 		}
@@ -138,8 +145,8 @@ int main(int argc, const char* argv[]) {
 			cout << "  " << e->toString();
 		}
 //	}
-*/
 
-	system("pause");
+
+//	system("pause");
 	return 0;
 }

@@ -1,5 +1,6 @@
 #include "Database.h"
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 void Database::schemes() {
@@ -14,8 +15,32 @@ void Database::facts() {
 	}
 }
 
-void Database::rules() {
-
+string Database::rules() {
+	bool tuplesAdded = false;
+	int passes = 0;
+	do {
+		tuplesAdded = false;
+		for (Rule* rule : info->getRules()) {
+			try {
+				Relation* r = answerQuery(rule->getPredicates().at(0));
+				for (int i = 1; i < rule->getPredicates().size(); ++i) {
+					r = r->join(answerQuery(rule->getPredicates().at(i)));
+				}
+				vector<string> param;
+				for (Parameter* p : rule->getHead()->getParam()) {
+					param.push_back(p->toString());
+				}
+				int x = relations.at(rule->getHead()->getName())->size();
+				relations.at(rule->getHead()->getName())->add(r, param);
+				if (relations.at(rule->getHead()->getName())->size() != x) {
+					tuplesAdded = true;
+				}
+			}
+			catch (const std::out_of_range& e) {}
+		}
+		passes++;
+	} while (tuplesAdded == true);
+	return ("Schemes populated after " + to_string(passes) + " passes through the Rules.");
 }
 
 string Database::queries() {
@@ -29,17 +54,16 @@ string Database::queries() {
 	return answers;
 }
 
-Relation* Database::answerQuery(Query* q) {
+Relation* Database::answerQuery(Predicate* q) {
 	vector<int> cols;
 	vector<string> names;
-	Relation* r = relations.at(q->getName());
+		Relation* r = relations.at(q->getName());	
 	for (int i = 0; i < q->getParam().size(); ++i) {
-//		cout << "processing parameter " << i << endl;
 		if (q->getParam().at(i)->type() == STRING) {
 			r = r->select(i, q->getParam().at(i)->toString());
-//			cout << "selecting on " << q->getParam().at(i)->toString() << endl;
 		}
 		else if (q->getParam().at(i)->type() == ID) {
+			/*
 			bool unique = true;
 			for (int j = 0; j < names.size(); ++j) {
 				if (names.at(j) == q->getParam().at(i)->toString()) {
@@ -50,17 +74,15 @@ Relation* Database::answerQuery(Query* q) {
 			if (unique) {
 				names.push_back(q->getParam().at(i)->toString());
 				cols.push_back(i);
+			}*/
+			if (find(names.begin(), names.end(), q->getParam().at(i)->toString()) == names.end()) {
+				names.push_back(q->getParam().at(i)->toString());
+				cols.push_back(i);
 			}
-			/*			if (find(names.begin(), names.end(), q->getParam().at(i)->toString()) == names.end()) {
-							names.push_back(q->getParam().at(i)->toString());
-							cols.push_back(i);
-						}
-						*/
+						
 			for (int j = i + 1; j < q->getParam().size(); ++j) {
 				if (q->getParam().at(j)->type() == ID && q->getParam().at(j)->toString() == q->getParam().at(i)->toString()) {
 					r = r->select(i, j);
-//					cout << "selecting" << q->getParam().at(j)->toString() << " and " << q->getParam().at(i)->toString() << endl;
-
 				}
 			}
 		}
@@ -68,8 +90,7 @@ Relation* Database::answerQuery(Query* q) {
 			throw q->getParam().at(i);
 		}
 	}
-	r = r->project(cols)->rename(names);
-	return r;
+	return r->project(cols)->rename(names);
 }
 
 string Database::toString() {
