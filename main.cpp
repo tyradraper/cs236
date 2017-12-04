@@ -137,6 +137,7 @@ int main(int argc, const char* argv[]) {
 			myDatabase->schemes();
 			myDatabase->facts();
 			cout << myDatabase->rules() << endl;
+			cout << myDatabase->toString() << endl;
 			cout << myDatabase->queries();
 			delete myLog;
 		}
@@ -147,6 +148,6 @@ int main(int argc, const char* argv[]) {
 //	}
 
 
-//	system("pause");
+	system("pause");
 	return 0;
 }

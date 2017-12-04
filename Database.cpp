@@ -30,6 +30,9 @@ string Database::rules() {
 				for (Parameter* p : rule->getHead()->getParam()) {
 					param.push_back(p->toString());
 				}
+				for (string s : param) {
+					cout << s << endl;
+				}
 				int x = relations.at(rule->getHead()->getName())->size();
 				relations.at(rule->getHead()->getName())->add(r, param);
 				if (relations.at(rule->getHead()->getName())->size() != x) {
@@ -57,7 +60,7 @@ string Database::queries() {
 Relation* Database::answerQuery(Predicate* q) {
 	vector<int> cols;
 	vector<string> names;
-		Relation* r = relations.at(q->getName());	
+	Relation* r = relations.at(q->getName());	
 	for (int i = 0; i < q->getParam().size(); ++i) {
 		if (q->getParam().at(i)->type() == STRING) {
 			r = r->select(i, q->getParam().at(i)->toString());
