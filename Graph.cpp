@@ -80,5 +80,6 @@ void Graph::test() {
 	cout << postOrderToString() << endl << endl;
 	cout << "Strongly Connected Components" << endl;
 	cout << connectedToString() << endl << endl;
+	cout << "Success!" << endl << endl;
 	cout << "-------------------------------------------------------------------------------" << endl << endl;
 }
