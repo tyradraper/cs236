@@ -40,24 +40,13 @@ public:
 		return output;
 	}
 	bool operator==(Tuple &other) {
-		for (int i = 0; i < data.size(); ++i) {
-			if (this->at(i) != other.at(i)) {
-				return false;
-			}
-		}
-		return true;
+		return this->data == other.data;
 	}
 	bool operator!=(Tuple &other) {
 		return !(*this == other);
 	}
 	bool operator<(Tuple &other) {
-		for (int i = 0; i < data.size(); ++i) {
-			if (this->at(i) != other.at(i)) {
-				return (this->at(i).compare(other.at(i)) < 0);
-			}
-		}
-		return false;
+		return this->data < other.data;
 	}
-private:
 	vector<string> data;
 };

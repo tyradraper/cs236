@@ -46,6 +46,8 @@ string Graph::postOrderToString() {
 }
 
 vector<vector<int>> Graph::stronglyConnected() {
+	po.clear();
+	postOrder();
 	vector<vector<int>> strong;
 	for (int i : po) {
 		if (dep.at(i)->visited) continue;

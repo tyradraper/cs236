@@ -16,38 +16,88 @@ void Database::facts() {
 }
 
 string Database::rules() {
+	string ans = "";
 	bool tuplesAdded = false;
-	int passes = 0;
-	do {
-		tuplesAdded = false;
-		for (Rule* rule : info->getRules()) {
-			try {
-				Relation* r = answerQuery(rule->getPredicates().at(0));
-				for (int i = 1; i < rule->getPredicates().size(); ++i) {
-					r = r->join(answerQuery(rule->getPredicates().at(i)));
+	vector<vector<int>> r = getOrder(ans);
+	ans += "\nRule Evaluation\n";
+	for (vector<int> set : r) {
+		bool recursive = true;
+		if (set.size() == 1) {
+			recursive = false;
+			for (Predicate* p : info->getRules().at(set.at(0))->getPredicates()) { //FIX ME PLS
+				if (info->getRules().at(set.at(0))->getHead()->getName() == p->getName()) {
+					recursive = true;
 				}
-				vector<string> param;
-				for (Parameter* p : rule->getHead()->getParam()) {
-					param.push_back(p->toString());
-				}
-				for (string s : param) {
-					cout << s << endl;
-				}
-				int x = relations.at(rule->getHead()->getName())->size();
-				relations.at(rule->getHead()->getName())->add(r, param);
-				if (relations.at(rule->getHead()->getName())->size() != x) {
+			}
+		}
+		int passes = 0;
+		do {
+			tuplesAdded = false;
+			for (int i : set) {
+				if (evaluateRule(info->getRules().at(i))) {
 					tuplesAdded = true;
 				}
 			}
-			catch (const std::out_of_range& e) {}
+			passes++;
+		} while (tuplesAdded && recursive);
+		ans += to_string(passes) + " passes: ";
+		for (int i : set) {
+			ans += "R" + to_string(i) + ",";
+		}
+		if (ans.back() == ',') ans.pop_back();
+		ans += "\n";
+	}
+
+
+	/*
+	do {
+		tuplesAdded = false;
+		for (Rule* rule : info->getRules()) {
+			if (evaluateRule(rule)) tuplesAdded = true;
 		}
 		passes++;
 	} while (tuplesAdded == true);
-	return ("Schemes populated after " + to_string(passes) + " passes through the Rules.");
+	*/
+	return ans;
+}
+
+vector<vector<int>> Database::getOrder(string& s) {
+	Graph g = Graph(info->getRules().size());
+	for (int i = 0; i < info->getRules().size(); ++i) {
+		for (Predicate* p : info->getRules().at(i)->getPredicates()) {
+			for (int j = 0; j < info->getRules().size(); ++j) {
+				if (p->getName() == info->getRules().at(j)->getHead()->getName()) {
+					g.add(i, j);
+				}
+			}
+		}
+	}
+	s += "Dependency Graph\n" + g.graphToString(true);
+	return g.stronglyConnected();
+}
+
+bool Database::evaluateRule(Rule* rule) {
+	try {
+		Relation* r = answerQuery(rule->getPredicates().at(0));
+		for (int i = 1; i < rule->getPredicates().size(); ++i) {
+			r = r->join(answerQuery(rule->getPredicates().at(i)));
+		}
+		vector<string> param;
+		for (Parameter* p : rule->getHead()->getParam()) {
+			param.push_back(p->toString());
+		}
+		int x = relations.at(rule->getHead()->getName())->size();
+		relations.at(rule->getHead()->getName())->add(r, param);
+		if (relations.at(rule->getHead()->getName())->size() != x) {
+			return true;
+		}
+	}
+	catch (const std::out_of_range& e) {}
+	return false;
 }
 
 string Database::queries() {
-	string answers = "";
+	string answers = "Query Evaluation\n";
 	for (Query* q : info->getQueries()) {
 		answers += q->toString() + answerQuery(q)->toString() + "\n";
 	}
