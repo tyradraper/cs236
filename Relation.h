@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <set>
 using namespace std;
 
 class Relation {
@@ -24,5 +25,5 @@ public:
 	int size();
 protected:
 	vector<string> schema;
-	vector<Tuple*> tuples;
+	set<Tuple*, PointerComparer> tuples;
 };

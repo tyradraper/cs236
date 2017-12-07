@@ -34,6 +34,6 @@ int main(int argc, const char* argv[]) {
 //	}
 
 
-	system("pause");
+//	system("pause");
 	return 0;
 }

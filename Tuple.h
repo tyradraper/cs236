@@ -4,6 +4,7 @@
 #include <iostream>
 using namespace std;
 
+
 class Tuple {
 public:
 	Tuple(vector<string> input) {
@@ -45,8 +46,16 @@ public:
 	bool operator!=(Tuple &other) {
 		return !(*this == other);
 	}
-	bool operator<(Tuple &other) {
+	bool operator<(const Tuple &other) const {
 		return this->data < other.data;
 	}
 	vector<string> data;
+};
+
+
+struct PointerComparer {
+	bool operator()(const Tuple* left, const Tuple* right) {
+		return *left < *right;
+		//compare and return whether left is 'less' than right
+	}
 };

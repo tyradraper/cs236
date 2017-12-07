@@ -13,7 +13,7 @@ public:
 	void schemes();
 	void facts();
 	string rules();
-	vector<vector<int>> getOrder(string& s);
+	vector<set<int>> getOrder(string& s);
 	bool evaluateRule(Rule* r);
 	string queries();
 	Relation* answerQuery(Predicate* q);

@@ -10,16 +10,7 @@ int Relation::size() {
 }
 
 void Relation::add(Tuple* tuple) {
-	for (vector<Tuple*>::const_iterator it = tuples.begin(); it < tuples.end(); ++it) {
-		if (*tuple == **it) {
-			return;
-		}
-		if (*tuple < **it) {
-			tuples.insert(it,tuple);
-			return;
-		}
-	}
-	tuples.push_back(tuple);
+	tuples.insert(tuple);
 }
 
 Relation* Relation::select(int col, string str) {
