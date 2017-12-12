@@ -1,26 +1,39 @@
 Schemes:
-A(a,b,c,d,e)
+A(a,b)
+rA(a,b)
+Reflexive(a,b)
 
+colB(b)
+Symmetric(a,b)
+Transitive(a,b)
+SymTran(a,b)
 
 Facts:
-A('a','b','c','d','e').
-# Comment the next fact to half the size
-A('f','g','h','i','j').
+A('1','2').
+A('2','3').
+A('3','4').
+A('4','5').
+A('5','6').
+A('6','7').
+A('7','8').
+A('8','9').
+A('9','10').
 
-
-#|remove to create 11E5 facts (maybe)
-A('a','b','c','f','g').
-A('a','b','c','h','i').
-A('a','b','c','j','k').
-|#
 Rules:
-A(a,b,c,d,e) :- A(e,d,c,b,a).
-A(a,b,c,f,g) :- A(a,b,c,d,e),A(e,d,c,f,g).
-A(a,b,c,d,e) :- A(b,c,d,e,a).
-A(a,b,c,d,e) :- A(b,a,c,d,e).
-
-
-
+Symmetric(X,Y) :- A(X,Y).
+Symmetric(X,Y) :- Symmetric(Y,X).
+rA(a,b) :- A(b,a).
+Reflexive(X,Y) :- A(X,Z),rA(Z,Y).
+Transitive(X,Y) :- A(X,Y).
+Transitive(X,Z) :- Transitive(X,Y),Transitive(Y,Z).
+SymTran(X,Y) :- SymTran(Y,X).
+SymTran(X,Z) :- SymTran(X,Y),SymTran(Y,Z).
+SymTran(X,Y) :- A(Y,X).
 
 Queries:
-A(a,b,c,d,e)?
+Symmetric(Q,R)?
+Reflexive(Q,R)?
+Transitive('1',P)?
+A('1','2')?
+Symmetric('2','1')?
+SymTran(X,Y)?

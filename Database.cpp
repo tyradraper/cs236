@@ -18,14 +18,14 @@ void Database::facts() {
 string Database::rules() {
 	string ans = "";
 	bool tuplesAdded = false;
-	vector<set<int>> r = getOrder(ans);
+	vector<vector<int>> r = getOrder(ans);
 	ans += "\nRule Evaluation\n";
-	for (set<int> set : r) {
+	for (vector<int> set : r) {
 		bool recursive = true;
 		if (set.size() == 1) {
 			recursive = false;
-			for (Predicate* p : info->getRules().at(*set.begin())->getPredicates()) { //FIX ME PLS
-				if (info->getRules().at(*set.begin())->getHead()->getName() == p->getName()) {
+			for (Predicate* p : info->getRules().at(set.at(0))->getPredicates()) { //FIX ME PLS
+				if (info->getRules().at(set.at(0))->getHead()->getName() == p->getName()) {
 					recursive = true;
 				}
 			}
@@ -61,7 +61,7 @@ string Database::rules() {
 	return ans;
 }
 
-vector<set<int>> Database::getOrder(string& s) {
+vector<vector<int>> Database::getOrder(string& s) {
 	Graph g = Graph(info->getRules().size());
 	for (int i = 0; i < info->getRules().size(); ++i) {
 		for (Predicate* p : info->getRules().at(i)->getPredicates()) {

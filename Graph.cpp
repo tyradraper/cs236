@@ -35,15 +35,6 @@ void Graph::evaluate(Node* n, vector<int>& v) {
 	v.push_back(n->value);
 }
 
-void Graph::evaluate(Node* n, set<int>& v) {
-	if (n->visited) return;
-	n->visited = true;
-	for (Node* c : n->children) {
-		evaluate(c, v);
-	}
-	v.insert(n->value);
-}
-
 string Graph::postOrderToString() {
 	po.clear();
 	postOrder();
@@ -54,15 +45,16 @@ string Graph::postOrderToString() {
 	return ans;
 }
 
-vector<set<int>> Graph::stronglyConnected() {
+vector<vector<int>> Graph::stronglyConnected() {
 	po.clear();
 	postOrder();
-	vector<set<int>> strong;
+	vector<vector<int>> strong;
 	for (int i : po) {
 		if (dep.at(i)->visited) continue;
-		set<int> v;
+		vector<int> v;
 		evaluate(dep.at(i), v);
-		reverse(v.begin(), v.end());
+//		reverse(v.begin(), v.end());
+		sort(v.begin(), v.end());
 		strong.push_back(v);
 	}
 	return strong;
@@ -70,8 +62,8 @@ vector<set<int>> Graph::stronglyConnected() {
 
 string Graph::connectedToString() {
 	string ans = "";
-	vector<set<int>> strong = stronglyConnected();
-	for (set<int> v : strong) {
+	vector<vector<int>> strong = stronglyConnected();
+	for (vector<int> v : strong) {
 		ans += "{";
 		for (int i : v) {
 			ans += to_string(i) + ",";

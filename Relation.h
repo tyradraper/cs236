@@ -2,8 +2,8 @@
 #include "Tuple.h"
 #include <vector>
 #include <string>
-#include <iostream>
 #include <set>
+#include <iostream>
 using namespace std;
 
 class Relation {

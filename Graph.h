@@ -3,7 +3,6 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
-#include <set>
 using namespace std;
 
 struct Node {
@@ -38,8 +37,7 @@ public:
 	void add(int a, int b);
 	void postOrder();
 	void evaluate(Node* n, vector<int>& v);
-	void evaluate(Node* n, set<int>& v);
-	vector<set<int>> stronglyConnected();
+	vector<vector<int>> stronglyConnected();
 	string graphToString(bool forward);
 	string postOrderToString();
 	string connectedToString();
